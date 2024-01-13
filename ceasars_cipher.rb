@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-require "pry-byebug"
+
+require 'pry-byebug'
 
 ALPHABET = %w[a b c d e f g h i j k l m n o p q r s t u
               v w x y z].freeze
@@ -20,17 +21,19 @@ def cipher_word(word, key)
       next
     end
 
-    if upcase?(char)
-      assigned_index = uppercase_alphabet.index(char) + key
-      assigned_index -= 26 if assigned_index > 25
-      encoded_characters << uppercase_alphabet[assigned_index]
-    else
-      assigned_index = ALPHABET.index(char) + key
-      assigned_index -= 26 if assigned_index > 25
-      encoded_characters << ALPHABET[assigned_index]
-    end
+    encoded_characters << if upcase?(char)
+                            find_encoded_letter_index(uppercase_alphabet, key, char)
+                          else
+                            find_encoded_letter_index(ALPHABET, key, char)
+                          end
   end
-  encoded_characters.join("")
+  encoded_characters.join('')
+end
+
+def find_encoded_letter_index(alphabet, key, char)
+  assigned_index = alphabet.index(char) + key
+  assigned_index -= 26 if assigned_index > 25
+  alphabet[assigned_index]
 end
 
 def letter?(character)
@@ -45,6 +48,5 @@ def uppercase_alphabet
   ALPHABET.map(&:upcase)
 end
 
-
-result = ceasars_cipher("What a string!", 5)
+result = ceasars_cipher('What a string!', 5)
 puts result
