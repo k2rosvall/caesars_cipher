@@ -5,7 +5,7 @@ require 'pry-byebug'
 ALPHABET = %w[a b c d e f g h i j k l m n o p q r s t u
               v w x y z].freeze
 
-def ceasars_cipher(phrase, key)
+def caesars_cipher(phrase, key)
   encoded_word = []
   phrase.split(' ').each do |word|
     encoded_word << cipher_word(word, key)
@@ -48,5 +48,5 @@ def uppercase_alphabet
   ALPHABET.map(&:upcase)
 end
 
-result = ceasars_cipher('What a string!', 5)
+result = caesars_cipher('What a string!', 5)
 puts result
